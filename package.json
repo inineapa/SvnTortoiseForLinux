@@ -9,7 +9,10 @@
     "dist:appimage": "electron-builder --linux AppImage"
   },
   "keywords": [],
-  "author": "inineapa",
+  "author": {
+    "name": "inineapa",
+    "email": "inineapa@users.noreply.github.com"
+  },
   "license": "ISC",
   "description": "SVN TortoiseSVN-like desktop app for Ubuntu",
   "build": {
