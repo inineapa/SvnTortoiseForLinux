@@ -1,0 +1,227 @@
+/* LOGS Pane */
+.logs-pane {
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+}
+
+.logs-filters {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 6px 8px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.filter-inputs {
+  display: flex;
+  gap: 6px;
+  flex: 0 1 80%;
+  min-width: 0;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.filter-group:first-child {
+  flex: 3;
+}
+
+.filter-group label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-group input {
+  padding: 4px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  outline: none;
+  width: 100%;
+}
+
+.filter-group input:focus {
+  border-color: var(--accent);
+}
+
+.autocomplete-wrapper {
+  position: relative;
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 100;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.autocomplete-item {
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.autocomplete-item:hover,
+.autocomplete-item.active {
+  background: var(--bg-hover);
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.btn-filter {
+  padding: 4px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+.btn-filter:hover {
+  background: var(--accent-hover);
+}
+
+.btn-filter.btn-clear {
+  background: rgba(180, 60, 80, 0.5);
+  color: #f0d0d0;
+}
+.btn-filter.btn-clear:hover {
+  background: rgba(200, 60, 80, 0.7);
+  color: white;
+}
+
+/* Logs table */
+.logs-table-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  table-layout: fixed;
+}
+
+.logs-table-header {
+  flex-shrink: 0;
+}
+
+.logs-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.logs-table thead th {
+  padding: 5px 8px;
+  background: var(--bg-tertiary);
+  border-bottom: 2px solid var(--border-color);
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-bright);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.col-rev { width: 80px; }
+.col-author { width: 90px; }
+.col-date { width: 170px; }
+.col-msg { width: auto; }
+
+.logs-table tbody {
+  font-family: var(--font-mono);
+}
+
+.logs-table tbody tr {
+  cursor: pointer;
+}
+.logs-table tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.logs-table tbody td {
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logs-table-container .pane-content-scroll {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Resizable column headers */
+.logs-table thead th {
+  position: relative;
+}
+
+.logs-table thead th .col-resize-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  cursor: col-resize;
+  z-index: 3;
+}
+
+.logs-table thead th .col-resize-handle:hover {
+  background: var(--accent);
+}
+
+/* Inline spinner for loading more */
+.logs-loading-more {
+  text-align: center;
+  padding: 8px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.logs-loading-more .mini-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border-color);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}

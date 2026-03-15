@@ -1,0 +1,151 @@
+/* View 1: Repository Selector */
+#view-repo-selector {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#view-repo-selector.active {
+  display: flex;
+}
+
+.selector-overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+}
+
+.selector-dialog {
+  width: 520px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.selector-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 4px 4px 0 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.selector-body {
+  padding: 20px;
+}
+
+.selector-body label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--text-bright);
+  font-size: 13px;
+}
+
+.combo-box {
+  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.combo-box input {
+  flex: 1;
+  padding: 8px 10px;
+  border: none;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: var(--font-mono);
+  outline: none;
+}
+
+.combo-box input:focus {
+  background: #1a1a2e;
+}
+
+.combo-toggle {
+  padding: 8px 12px;
+  border: none;
+  border-left: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 11px;
+}
+.combo-toggle:hover {
+  background: var(--bg-hover);
+}
+
+.recent-list {
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--bg-primary);
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.recent-item:hover {
+  background: var(--bg-hover);
+}
+
+.recent-item .url-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-item .btn-delete {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+  margin-left: 8px;
+}
+.recent-item .btn-delete:hover {
+  color: var(--danger);
+}
+
+.selector-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 16px;
+  gap: 12px;
+}
+
+.btn-select {
+  padding: 8px 24px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+.btn-select:hover {
+  background: var(--accent-hover);
+}
+.btn-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

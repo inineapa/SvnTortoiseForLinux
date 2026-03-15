@@ -1,0 +1,92 @@
+/* DirectoryListing Pane */
+.dir-pane {
+  min-height: 100px;
+}
+
+.dir-pane .pane-content {
+  padding: 6px 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.dir-entry {
+  display: flex;
+  align-items: center;
+  padding: 3px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.dir-entry:hover {
+  background: var(--bg-hover);
+}
+
+.dir-entry.disabled {
+  color: var(--text-secondary);
+  opacity: 0.5;
+  cursor: default;
+}
+.dir-entry.disabled:hover {
+  background: transparent;
+}
+
+.dir-entry .entry-icon {
+  width: 20px;
+  text-align: center;
+  margin-right: 6px;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.dir-entry .entry-name {
+  flex: 1;
+}
+
+/* File type colors */
+.dir-entry.type-dir .entry-name {
+  color: #4ec9b0;
+  font-weight: 600;
+}
+
+.dir-entry.type-c .entry-name {
+  color: #569cd6;
+}
+
+.dir-entry.type-h .entry-name {
+  color: #9cdcfe;
+}
+
+.dir-entry.type-makefile .entry-name {
+  color: #dcdcaa;
+}
+
+.dir-entry.type-sh .entry-name {
+  color: #ce9178;
+}
+
+.dir-entry.type-exec .entry-name {
+  color: #4ec9b0;
+  font-style: italic;
+}
+
+.dir-entry.type-file .entry-name {
+  color: var(--text-primary);
+}
+
+.dir-entry.type-up .entry-name {
+  color: var(--text-secondary);
+}
+
+.dir-header {
+  padding: 3px 8px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 2px;
+}
+
+.dir-indent {
+  padding-left: 20px;
+}

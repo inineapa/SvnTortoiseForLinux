@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+  <title>SVN Tortoise for Ubuntu</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/repository-selector.css">
+  <link rel="stylesheet" href="styles/tree-view.css">
+  <link rel="stylesheet" href="styles/directory-listing.css">
+  <link rel="stylesheet" href="styles/logs-pane.css">
+  <link rel="stylesheet" href="styles/file-list-pane.css">
+  <link rel="stylesheet" href="styles/diff-view.css">
+  <link rel="stylesheet" href="styles/blame-view.css">
+</head>
+<body>
+  <!-- View 1: Repository Selector -->
+  <div id="view-repo-selector" class="view active">
+    <div class="selector-overlay">
+      <div class="selector-dialog">
+        <div class="selector-titlebar">
+          <span>SVN Tortoise for Ubuntu</span>
+          <button class="btn-close" id="selector-close">&times;</button>
+        </div>
+        <div class="selector-body">
+          <label>Select a repository or enter a new one:</label>
+          <div class="combo-box">
+            <input type="text" id="repo-url-input" placeholder="https://svn.example.com/repo/trunk" autocomplete="off">
+            <button class="combo-toggle" id="combo-toggle">&#9660;</button>
+          </div>
+          <div class="recent-list" id="recent-list" style="display:none;"></div>
+          <div class="selector-actions">
+            <span id="selector-error" class="error-msg"></span>
+            <button class="btn-select" id="btn-select">SELECT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View 2: Main View -->
+  <div id="view-main" class="view">
+    <div class="main-titlebar">
+      <span class="titlebar-text">SVN Tortoise for Ubuntu</span>
+      <span class="titlebar-url" id="main-url"></span>
+      <button class="btn-close" id="main-close">&times;</button>
+    </div>
+    <div class="main-content">
+      <div class="pane tree-pane" id="tree-pane" data-pane="tree">
+        <div class="pane-scroll-indicator top" style="display:none;">&#9650;&#9650;&#9650;</div>
+        <div class="pane-content" id="tree-content"></div>
+        <div class="pane-scroll-indicator bottom" style="display:none;">&#9660;&#9660;&#9660;</div>
+      </div>
+      <div class="pane-divider vertical" id="divider-tree-dir"></div>
+      <div class="pane dir-pane" id="dir-pane" data-pane="dir">
+        <div class="pane-scroll-indicator top" style="display:none;">&#9650;&#9650;&#9650;</div>
+        <div class="pane-content" id="dir-content"></div>
+        <div class="pane-scroll-indicator bottom" style="display:none;">&#9660;&#9660;&#9660;</div>
+      </div>
+      <div class="pane-divider vertical" id="divider-main"></div>
+      <div class="right-panels">
+        <div class="pane logs-pane" id="logs-pane" data-pane="logs">
+          <div class="logs-filters">
+            <div class="filter-inputs">
+              <div class="filter-group">
+                <label>File path</label>
+                <div class="autocomplete-wrapper">
+                  <input type="text" id="filter-path" placeholder="path/to/file" autocomplete="off">
+                  <div class="autocomplete-dropdown" id="path-autocomplete" style="display:none;"></div>
+                </div>
+              </div>
+              <div class="filter-group">
+                <label>Author</label>
+                <input type="text" id="filter-author" placeholder="author">
+              </div>
+              <div class="filter-group">
+                <label>Keyword</label>
+                <input type="text" id="filter-keyword" placeholder="keyword">
+              </div>
+            </div>
+            <div class="filter-buttons">
+              <button class="btn-filter" id="btn-search">SEARCH</button>
+              <button class="btn-filter btn-clear" id="btn-clear">CLEAR</button>
+            </div>
+          </div>
+          <div class="logs-table-container">
+            <div class="pane-scroll-indicator top" style="display:none;">&#9650;&#9650;&#9650;</div>
+            <table class="logs-table">
+              <thead>
+                <tr>
+                  <th class="col-rev">Revision</th>
+                  <th class="col-author">Author</th>
+                  <th class="col-date">Date</th>
+                  <th class="col-msg">Message</th>
+                </tr>
+              </thead>
+              <tbody id="logs-tbody"></tbody>
+            </table>
+            <div class="pane-scroll-indicator bottom" style="display:none;">&#9660;&#9660;&#9660;</div>
+          </div>
+        </div>
+        <div class="pane-divider horizontal" id="divider-right"></div>
+        <div class="pane file-list-pane" id="file-list-pane" data-pane="filelist">
+          <div class="pane-scroll-indicator top" style="display:none;">&#9650;&#9650;&#9650;</div>
+          <div class="pane-content" id="file-list-content"></div>
+          <div class="pane-scroll-indicator bottom" style="display:none;">&#9660;&#9660;&#9660;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View 3: Diff View -->
+  <div id="view-diff" class="view">
+    <div class="diff-titlebar">
+      <span class="titlebar-text">SVN Tortoise for Ubuntu</span>
+      <span class="diff-filepath" id="diff-filepath"></span>
+      <span class="diff-change-counter" id="diff-change-counter"></span>
+      <button class="btn-diff-nav" id="diff-prev" title="Previous change">&#9650; Prev</button>
+      <button class="btn-diff-nav" id="diff-next" title="Next change">&#9660; Next</button>
+      <button class="btn-close" id="diff-close">&times;</button>
+    </div>
+    <div class="diff-body">
+      <div class="pane-scroll-indicator top" style="display:none;">&#9650;&#9650;&#9650;</div>
+      <div class="diff-content" id="diff-content"></div>
+      <div class="pane-scroll-indicator bottom" style="display:none;">&#9660;&#9660;&#9660;</div>
+    </div>
+  </div>
+
+  <!-- View 4: Blame View -->
+  <div id="view-blame" class="view">
+    <div class="blame-titlebar">
+      <span class="titlebar-text">SVN Tortoise for Ubuntu</span>
+      <span class="blame-chain" id="blame-chain"></span>
+      <button class="btn-close" id="blame-close">&times;</button>
+    </div>
+    <div class="blame-content" id="blame-content">
+      <div class="pane-scroll-indicator top" style="display:none;">&#9650;&#9650;&#9650;</div>
+      <div class="blame-table-wrapper" id="blame-table-wrapper"></div>
+      <div class="pane-scroll-indicator bottom" style="display:none;">&#9660;&#9660;&#9660;</div>
+    </div>
+  </div>
+
+  <!-- Context Menu -->
+  <div class="context-menu" id="context-menu" style="display:none;"></div>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loading" style="display:none;">
+    <div class="spinner"></div>
+    <span>Loading...</span>
+    <span class="loading-cancel-hint">Press Ctrl+C or click to cancel</span>
+  </div>
+
+  <!-- Fuzzy search floating modal -->
+  <div id="fuzzy-search-modal" class="fuzzy-search-modal" style="display:none;">
+    <span id="fuzzy-search-text"></span>
+  </div>
+
+  <script src="js/file-icons.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/context-menu.js"></script>
+  <script src="js/view-repository-selector.js"></script>
+  <script src="js/pane-tree-view.js"></script>
+  <script src="js/pane-directory-listing.js"></script>
+  <script src="js/pane-logs.js"></script>
+  <script src="js/pane-file-list.js"></script>
+  <script src="js/view-diff.js"></script>
+  <script src="js/view-blame.js"></script>
+  <script src="js/view-main.js"></script>
+  <script src="js/fuzzy-search.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

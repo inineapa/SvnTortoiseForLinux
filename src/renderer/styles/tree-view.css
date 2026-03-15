@@ -1,0 +1,100 @@
+/* TreeView Pane */
+.tree-pane {
+  min-height: 100px;
+}
+
+.tree-pane .pane-content {
+  padding: 6px 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.tree-node {
+  display: flex;
+  align-items: stretch;
+  padding: 0 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  height: 22px;
+}
+
+.tree-node:hover {
+  background: var(--bg-hover);
+}
+
+.tree-indent {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.tree-indent-unit {
+  width: 24px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* │  Vertical continuation line - runs full height */
+.tree-indent-unit.line::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #666;
+}
+
+/* ├── Middle branch: full vertical line + horizontal to right edge */
+.tree-indent-unit.branch::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #666;
+}
+.tree-indent-unit.branch::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  right: 0;
+  height: 1px;
+  background: #666;
+}
+
+/* └── Last branch: half vertical line + horizontal to right edge */
+.tree-indent-unit.last-branch::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 0;
+  height: 50%;
+  width: 1px;
+  background: #666;
+}
+.tree-indent-unit.last-branch::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  right: 0;
+  height: 1px;
+  background: #666;
+}
+
+.tree-label {
+  padding: 1px 4px;
+  border-radius: 2px;
+  color: var(--text-bright);
+  align-self: center;
+}
+
+.tree-node .tree-icon {
+  margin-right: 3px;
+  font-size: 13px;
+  flex-shrink: 0;
+  align-self: center;
+}
